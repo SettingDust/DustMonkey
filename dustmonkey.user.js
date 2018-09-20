@@ -31,6 +31,12 @@ function addSpace(code) {
     return s
 }
 
+function addExternalStyle(link) {
+    let elem = $("<style\>")
+    elem.attr("href", link)
+    elem.attr("rel", "stylesheet")
+}
+
 /**
  * 基于数组的简单List类
  */
