@@ -17,7 +17,12 @@ if (zip)
 
 let body = $("body")
 
-function addSpace(style) {
+/**
+ * 对一段文本通过换行符做双空格缩进（很蠢的方法了hh
+ * @param code 文本
+ * @returns {string} 缩进后文本
+ */
+function addSpace(code) {
     let s = ""
     if (!zip)
         style.split(warp).forEach((e) => {
@@ -26,6 +31,9 @@ function addSpace(style) {
     return s
 }
 
+/**
+ * 基于数组的简单List类
+ */
 class List extends Array {
     constructor() {
         super()
@@ -86,6 +94,9 @@ class List extends Array {
     }
 }
 
+/**
+ * style
+ */
 class StyleLine {
     constructor() {
         this._key = ""
@@ -122,6 +133,9 @@ class StyleLine {
     }
 }
 
+/**
+ * 多个style
+ */
 class StyleLines {
     constructor() {
         this._styleList = new List()
@@ -158,6 +172,9 @@ class StyleLines {
     }
 }
 
+/**
+ * 拥有选择器的style对象
+ */
 class StyleBlock {
     constructor() {
         this._styleLines = new StyleLines()
@@ -184,6 +201,9 @@ class StyleBlock {
     }
 }
 
+/**
+ * 拥有特定属性的style对象
+ */
 class KeyStyle extends StyleBlock {
     constructor() {
         super();
@@ -199,6 +219,9 @@ class KeyStyle extends StyleBlock {
     }
 }
 
+/**
+ * media style对象
+ */
 class MediaStyle extends KeyStyle {
     constructor() {
         super();
@@ -225,6 +248,9 @@ class MediaStyle extends KeyStyle {
     }
 }
 
+/**
+ * 伪元素或者类状态style
+ */
 class ChildStyle extends KeyStyle {
     toString() {
         this.selector(this.selector() + this.key())
@@ -232,6 +258,9 @@ class ChildStyle extends KeyStyle {
     }
 }
 
+/**
+ * 完整含有style元素对象
+ */
 class Style {
     constructor() {
         this._name = null
@@ -256,6 +285,9 @@ class Style {
     }
 }
 
+/**
+ * 管理style元素
+ */
 class StyleManager {
     constructor() {
         this._styleList = new List()
@@ -276,5 +308,60 @@ class StyleManager {
             style.attr("data-name", name);
             body.append(style);
         })
+    }
+}
+
+/**
+ * 简单的颜色处理
+ */
+class Color {
+    constructor() {
+        this._r = 0
+        this._g = 0
+        this._b = 0
+        this._a = 0
+    }
+
+    get r() {
+        return this._r;
+    }
+
+    set r(value) {
+        this._r = value;
+    }
+
+    get g() {
+        return this._g;
+    }
+
+    set g(value) {
+        this._g = value;
+    }
+
+    get b() {
+        return this._b;
+    }
+
+    set b(value) {
+        this._b = value;
+    }
+
+    get a() {
+        return this._a;
+    }
+
+    set a(value) {
+        this._a = value;
+    }
+
+    /**
+     * a为0时返回rbg字符串
+     * @returns {string}
+     */
+    toString() {
+        if (this._a > 0)
+            return "rgba(" + this._r + "," + this._g + "," + this._b + "," + this._a + ")"
+        else
+            return "rgb(" + this._r + "," + this._g + "," + this._b + ")"
     }
 }
