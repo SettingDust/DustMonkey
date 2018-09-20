@@ -15,6 +15,7 @@ let zip = false
 if (zip)
     warp = ""
 
+let head = $("head")
 let body = $("body")
 
 /**
@@ -35,6 +36,18 @@ function addExternalStyle(link) {
     let elem = $("<style\>")
     elem.attr("href", link)
     elem.attr("rel", "stylesheet")
+    elem.appendTo(body)
+    return elem
+}
+
+function setThemeColor(color) {
+    let elem = $("meta[name='theme-color']")
+    if (elem.length === 0)
+        elem = $("<meta\>")
+    elem.attr("name", "theme-color")
+    elem.attr("content", color.toString())
+    elem.appendTo(head)
+    return elem
 }
 
 /**
